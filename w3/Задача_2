@@ -1,0 +1,4 @@
+def write_array(array, file_name):
+    array ='/n'.join(array)
+    with open(file_name,"w") as file:
+        file.write(array)
