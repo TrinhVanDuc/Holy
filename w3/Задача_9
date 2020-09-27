@@ -1,7 +1,7 @@
-#code:int('lyffy')
+#code:int(input())
 
 try:
-    int('lyffy')
+    int(input())
 except ValueError:
     print('Error')
 finally:
