@@ -1,9 +1,0 @@
-try:
-    try:
-        a = input()
-        int(a)
-    except:
-        raise NameError("Convertion is failed")
-except NameError as ex:
-    print("There is an Exception")
-    print(ex)
