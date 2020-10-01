@@ -1,0 +1,9 @@
+import csv
+with open('table.csv', 'r') as f:
+     csv_reader = csv.reader(f, delimiter=';')
+new = [-200]*len(csv_reader[0])
+csv_reader.insert(2,new)
+with open('middle_row.csv', 'w') as new_file:
+    csv_writer = csv.writer(new_file, delimiter=',')
+    for line in csv_reader:
+        csv_writer.writerow(line)
