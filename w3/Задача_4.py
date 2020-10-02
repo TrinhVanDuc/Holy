@@ -8,9 +8,8 @@ with open("1.json","w") as f:
     json.dump(data, f, indent= 4)
     
 #сохранить через json.dumps()
-data1 = json.dumps(data, indent=4)
 with open("1.json","w") as f:
-    f.write(data1)
+    f.write(json.dumps(data, indent=4))
 
 
 
