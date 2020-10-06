@@ -1,11 +1,11 @@
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--n', dest='p1')
+parser.add_argument('n',help='the fibonacci numer',type = int)
 args = parser.parse_args()
-n = int(args.p1)
+n = args.n
 def f(i):
-    if i in (1, 2):
+    if i in (0, 1):
         return 1
     return f(i - 1) + f(i - 2)
 print(f(n))
