@@ -1,4 +1,3 @@
-import sys
-print("Вы используете Python {}.{}".format(sys.version_info.major, sys.version_info.minor))
+import sys 
+print(sys.version)
 print(sys.platform)
-sys.exit(1)
