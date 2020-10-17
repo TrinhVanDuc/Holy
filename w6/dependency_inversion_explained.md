@@ -3,8 +3,8 @@
 2. Абстракции не должны зависеть от деталей. Детали должны зависеть от абстракций.
 * **Пример**:
   * **Нарушение DIP**
-  ```
-  class BackendDeveloper:
+```
+class BackendDeveloper:
     """This is a low-level module"""
     @staticmethod
     def python():
@@ -29,7 +29,7 @@ print(project.develop())
 *Класс `Project` - это модуль высокого уровня, а `Backend` и `Frontend` - это модули низкого уровня. В этом примере мы обнаружили, что модуль высокого уровня зависит от модуля низкого уровня. Следовательно, в этом примере нарушается принцип инверсии зависимостей. Решим задачу по определению DIP.*
    * **Решение**:
    ```
-   class BackendDeveloper:
+class BackendDeveloper:
    """This is a low-level module"""
    def develop(self):
        self.__python_code()
