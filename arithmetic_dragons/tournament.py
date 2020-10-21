@@ -28,7 +28,7 @@ def game_tournament(hero, dragon_list):
                 print('Ошибка! \n** вам нанесён удар... **')
         if dragon.is_alive():
             break
-        print('Дракон', dragon._color, 'повержен!\n')
+        print('Дракон', dragon._color, 'повержен!\n Ваш накопленный опыт:', hero._experience, '\n')
 
     if hero.is_alive():
         print('Поздравляем! Вы победили!')
@@ -36,7 +36,7 @@ def game_tournament(hero, dragon_list):
     else:
         print('К сожалению, Вы проиграли...')
 
-def game_tournament1(hero, troll):
+def game_tournament1(hero, troll_list):
     for troll in dragon_list:
         print('Вышел', troll._color, 'тролль!')
         while troll.is_alive() and hero.is_alive:
@@ -45,10 +45,10 @@ def game_tournament1(hero, troll):
 
             if troll.check_answer(answer):
                 hero.attack(troll)
-                print('Верно!')
+                print('Верно! \n** тролль кричит от боли **')
             else:
                 troll.attack(hero)
-                print('Ошибка')
+                print('Ошибка \n** вам нанесён удар...**')
         if troll.is_alive:
             break
         print('Тролль', troll._color, 'Повержен!\n')
@@ -73,6 +73,9 @@ def start_game():
 
         troll_number = 3
         troll_list = generate_troll_list(troll_number)
+        assert(len(troll_list) == 3)
+        print('У Вас на пути', troll_number, 'троллей!')
+        game_tournament2(hero, troll_list)
 
     except EOFError:
         print('Поток ввода закончился. Извините, принимать ответы более невозможно.')
