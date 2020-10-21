@@ -69,7 +69,7 @@ def start_game():
         dragon_list = generate_dragon_list(dragon_number)
         assert(len(dragon_list) == 3)
         print('У Вас на пути', dragon_number, 'драконов!')
-        game_tournament(hero, dragon_list)
+        game_tournament1(hero, dragon_list)
 
         troll_number = 3
         troll_list = generate_troll_list(troll_number)
