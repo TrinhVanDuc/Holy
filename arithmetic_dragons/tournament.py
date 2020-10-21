@@ -13,7 +13,7 @@ def annoying_input_int(message =''):
     return answer
 
 
-def game_tournament(hero, dragon_list):
+def game_tournament1(hero, dragon_list):
     for dragon in dragon_list:
         print('Вышел', dragon._color, 'дракон!')
         while dragon.is_alive() and hero.is_alive():
@@ -36,7 +36,7 @@ def game_tournament(hero, dragon_list):
     else:
         print('К сожалению, Вы проиграли...')
 
-def game_tournament1(hero, troll_list):
+def game_tournament2(hero, troll_list):
     for troll in dragon_list:
         print('Вышел', troll._color, 'тролль!')
         while troll.is_alive() and hero.is_alive:
