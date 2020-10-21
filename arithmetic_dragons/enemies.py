@@ -1,7 +1,7 @@
 # coding: utf-8
 # license: GPLv3
 from gameunit import *
-from random import randint
+from random import randint, choice
 
 class Enemy(Attacker):
     pass
@@ -11,7 +11,6 @@ def generate_random_enemy():
     RandomEnemyType = choice(enemy_types)
     enemy = RandomEnemyType()
     return enemy
-
 
 def generate_dragon_list(enemy_number):
     enemy_list = [generate_random_enemy() for i in range(enemy_number)]
@@ -43,6 +42,7 @@ class RedDragon(Dragon):
         self._health = 200
         self._attack = 100
         self._color = 'красный'
+        
     def question(self):
         x = randint(1,100)
         y = randint(1,100)
@@ -55,6 +55,7 @@ class BlackDragon(Dragon):
         self._health = 200
         self._attack = 100
         self._color = 'чёрный'
+        
     def question(self):
         x = randint(1,100)
         y = randint(1,100)
@@ -62,8 +63,7 @@ class BlackDragon(Dragon):
         self.set_answer(x*y)
         return self.__quest
 
-#FIXME здесь также должны быть описаны классы RedDragon и BlackDragon
-# красный дракон учит вычитанию, а чёрный -- умножению.
+
 
 
 enemy_types = [GreenDragon, RedDragon, BlackDragon]
