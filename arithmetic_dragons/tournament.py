@@ -36,10 +36,11 @@ def game_tournament1(hero, dragon_list):
     else:
         print('К сожалению, Вы проиграли...')
 
+
 def game_tournament2(hero, troll_list):
     for troll in dragon_list:
         print('Вышел', troll._color, 'тролль!')
-        while troll.is_alive() and hero.is_alive:
+        while troll.is_alive() and hero.is_alive():
             print('Вопрос:', troll.question())
             answer = annoying_input_int('Ответ:')
 
@@ -48,15 +49,17 @@ def game_tournament2(hero, troll_list):
                 print('Верно! \n** тролль кричит от боли **')
             else:
                 troll.attack(hero)
-                print('Ошибка \n** вам нанесён удар...**')
-        if troll.is_alive:
+                print('Ошибка! \n** вам нанесён удар... **')
+        if troll.is_alive():
             break
-        print('Тролль', troll._color, 'Повержен!\n')
+        print('Тролль', troll._color, 'повержен!\n')
+
     if hero.is_alive():
-        print('Поздравляем! Вы победили.')
-        print('Ваш накопленный опыт:', hero._esperience)
+        print('Поздравляем! Вы победили!')
+        print('Ваш накопленный опыт:', hero._experience)
     else:
-        print('К сожалению! Вы проиграли.')
+        print('К сожалению, Вы проиграли...')
+
 
 def start_game():
 
