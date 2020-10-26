@@ -6,9 +6,7 @@ class Hero(Attacker):
         self._health = 100
         self._attack = 50
         self._experience = 0
-    def attack(self,target):
-        target._health -= self._attack
-        target._experience += 1
+
     def gameOver(self):
         return self._health <= 0 
 
