@@ -38,7 +38,7 @@ def game_tournament1(hero, dragon_list):
 
 
 def game_tournament2(hero, troll_list):
-    for troll in dragon_list:
+    for troll in troll_list:
         print('Вышел', troll._color, 'тролль!')
         while troll.is_alive() and hero.is_alive():
             print('Вопрос:', troll.question())
