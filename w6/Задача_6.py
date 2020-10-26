@@ -3,7 +3,7 @@ import cmath
 
 class MyMath:
     pi = 3.14
-    __complex = False # Инкапсуляция
+    _complex = False # Инкапсуляция
 
     @staticmethod
     def sin(x):
@@ -11,7 +11,7 @@ class MyMath:
 
     @classmethod
     def complex(cls):
-        return cls.__complex
+        return cls._complex
 
     @classmethod
     def sqrt(cls, x):
@@ -25,11 +25,7 @@ class MyMath:
             return math.sqrt(x)
 
 class MyComlexMath(MyMath): # Наследоаоние
-    __complex = True        # Инкапсуляция
-    
-    @classmethod
-    def complex(cls):
-        return cls.__complex
+    _complex = True        # Инкапсуляция и Наследование
         
     
 if __name__ == "__main__":
