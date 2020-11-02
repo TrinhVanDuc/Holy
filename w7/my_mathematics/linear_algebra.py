@@ -15,5 +15,5 @@ class Vector:
         s = 0
         for i in self.__args:
             s = s+i**2
-            distance = s**0.5
+        distance = s**0.5
         return distance
