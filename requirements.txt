@@ -1,3 +1,4 @@
-This is wheel version 0.35.1
-This is pytest version 3.3.2
-This is setuptools version 39.0.1
+setuptools == 39.0.1
+wheel == 0.35.1
+pytest == 3.3.2
+numpy == 1.19.3
