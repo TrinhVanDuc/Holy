@@ -6,6 +6,5 @@ lists = [
     [7, 8, 9],
     [5, 7, 8, 9, 10]
 ]
-@pytest.mark.parametrize('in_put, result',[(maximize(lists, m=1000), 206)])
-def test_maximize(in_put,result):
-    assert in_put == result
+def test_maximize():
+    assert maximize(lists,1000) == 206
