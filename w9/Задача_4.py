@@ -41,9 +41,3 @@ try:
     coroutine.throw(Terminate)
 except:
     pass
-
-
-
-
-
-
