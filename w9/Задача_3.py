@@ -52,9 +52,3 @@ print(coroutine.throw(PrintAmountOfElements))
 next(coroutine)
 
 coroutine.close()
-
-
-
-
-
-
