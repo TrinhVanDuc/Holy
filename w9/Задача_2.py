@@ -43,9 +43,3 @@ if __name__ == "__main__":
             print("----------")
         except StopIteration:
             print("End.")
-
-
-
-
-
-
