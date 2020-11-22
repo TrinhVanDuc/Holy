@@ -48,6 +48,3 @@ plt.grid()
 plt.ylabel('Время выполнения, [с]')
 plt.xlabel('Число потоков')
 plt.show()
-
-
-
