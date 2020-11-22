@@ -59,8 +59,4 @@ if __name__ == "__main__":
     plt.ylabel('Время выполнения, [с]')
     plt.xlabel('Число процессы')
     plt.show()
-
-
-
-
-
+    
