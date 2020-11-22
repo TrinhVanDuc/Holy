@@ -14,11 +14,3 @@ if __name__ == "__main__":
     print(sum(results1))
     results = pool.map(scalar2, zip(v1, v2))
     print(sum(results))
-
-
-
-
-
-
-
-
