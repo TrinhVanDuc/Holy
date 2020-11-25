@@ -1,24 +1,32 @@
 import multiprocessing
-from multiprocessing import Queue
+from multiprocessing import Queue, Pipe
 import matplotlib.pyplot as plt
 import time
-def product(i,x,y):
-    return x[i] * y[i]
+def product(x,y):
+    return x * y
 
-def f(q, res):
+def f(q, res): # с помощью Queue
     q.put(res)
     return q
-a = 0
 
+def f1(q, res): # с помощью Pipe
+    q.send(res)
+    q.close()
+    pass
+
+a = 0
 def add_sum(q,counter):
     global a
     for i in range(counter):
-        res = q.get()
+        #res = q.get()         # с помощью Queue
+        res = q.recv()         # с помощью Pipe
+
         a += res
-        return a
+    return a
 
 def run_processes(counter,v1,v2,q):
-    processes = [multiprocessing.Process(target=f, args = (q,product(i,v1,v2))) for i in range(0,counter)]
+    #processes = [multiprocessing.Process(target=f, args = (q,product(v1[i],v2[i]))) for i in range(0,counter)]  #Queue
+    processes = [multiprocessing.Process(target=f1, args=(v, product(v1[i], v2[i]))) for i in range(0, counter)] #Pipe
 
     for process in processes:
         process.start()
@@ -31,8 +39,10 @@ def scalar(v1,v2):
     for i in range(len(v1)):
         a += v1[i]*v2[i]
         return a
+
 if __name__ == "__main__":
-    q = Queue()
+    #q = Queue()
+    q, v = Pipe()
     v1 = [23, 5, 1999, 15, 99]
     v2 = [31, 1, 2000, 30, 12]
     n = len(v1)

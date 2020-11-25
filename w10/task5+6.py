@@ -4,13 +4,13 @@ import time
 
 # task 5
 a = 0
-def scalar_product(i, v1, v2):
+def scalar_product(x1, x2):
     global a
-    s = v1[i]*v2[i]
+    s = x1*x2
     a = a + s
 
 def run_threads(n,v1,v2):
-    threads = [threading.Thread(target= scalar_product, args = (i,v1,v2)) for i in range(n)]
+    threads = [threading.Thread(target= scalar_product, args = (v1[i],v2[i])) for i in range(n)]
     for thread in threads:
         thread.start()
 
@@ -39,7 +39,7 @@ for i in range(3):
 for i in range(3):
     start_time2 = time.time()
     run_threads(n,v1,v2)
-    run_time2 = time.time() -start_time2
+    run_time2 = time.time() - start_time2
     list_time.append(run_time2)
 
 print(list_time)
