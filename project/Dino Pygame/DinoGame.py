@@ -9,6 +9,13 @@ display_height = 600
 display = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption('Run Dino! Run!')
 
+pygame.mixer.music.load('background.mp3')
+pygame.mixer.music.set_volume(0.3)
+
+jump_sound = pygame.mixer.Sound('Rrr.wav')
+fall_sound = pygame.mixer.Sound('Bdish.wav')
+
+
 icon = pygame.image.load('icon.png')
 pygame.display.set_icon(icon)
 
@@ -61,9 +68,15 @@ clock = pygame.time.Clock()
 make_jump = False
 jump_counter = 30
 
+scores = 0
+max_scores = 0
+max_above = 0
+
 
 def run_game():
     global make_jump
+    # pygame.mixer.music.play(-1)
+
     game = True
     cactus_arr = []
     create_cactus_arr(cactus_arr)
@@ -86,13 +99,20 @@ def run_game():
         if make_jump:
             jump()
 
+        count_scores(cactus_arr)
+
         display.blit(land, (0, 0))
+        print_text('Scores:  ' + str(scores), 600, 10)
+
         draw_array(cactus_arr)
         move_objects(stone, cloud)
 
         draw_dino()
 
         if check_collision(cactus_arr):
+            # pygame.mixer.music.stop()
+            pygame.mixer.Sound.play(fall_sound)
+
             game = False
 
         pygame.display.update()
@@ -103,6 +123,11 @@ def run_game():
 def jump():
     global usr_y, jump_counter, make_jump
     if jump_counter >= -30:
+        if jump_counter == 30:
+            pygame.mixer.Sound.play(jump_sound)
+        if jump_counter == -26:
+            pygame.mixer.Sound.play(fall_sound)
+
         usr_y -= jump_counter / 2.5
         jump_counter -= 1
     else:
@@ -136,7 +161,7 @@ def find_radius(array):
     if maximum < display_width:
         radius = display_width
         if radius - maximum < 50:
-            radius += 150
+            radius += 280
     else:
         radius = maximum
 
@@ -144,7 +169,7 @@ def find_radius(array):
     if choice == 0:
         radius += random.randrange(10, 15)
     else:
-        radius += random.randrange(200, 350)
+        radius += random.randrange(250, 400)
 
     return radius
 
@@ -206,6 +231,9 @@ def print_text(message, x, y, font_color=(0, 0, 0), font_type='PingPong.ttf', fo
 
 def pause():
     paused = True
+
+    # pygame.mixer.music.pause()
+
     while paused:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -220,6 +248,8 @@ def pause():
 
         pygame.display.update()
         clock.tick(15)
+
+    # pygame.mixer.music.unpause()
 
 
 def check_collision(barriers):
@@ -255,7 +285,30 @@ def check_collision(barriers):
     return False
 
 
+def count_scores(barriers):
+    global scores, max_above
+    above_cactus = 0
+
+    if -20 <= jump_counter < 25:
+        for barrier in barriers:
+            if usr_y + usr_height - 5 <= barrier.y:
+                if barrier.x <= usr_x <= barrier.x + barrier.width:
+                    above_cactus += 1
+                elif barrier.x <= usr_x + usr_width <= barrier.x + barrier.width:
+                    above_cactus += 1
+
+        max_above = max(max_above, above_cactus)
+    else:
+        if jump_counter == -30:
+            scores += max_above
+            max_above = 0
+
+
 def game_over():
+    global scores, max_scores
+    if scores > max_scores:
+        max_scores = scores
+
     stopped = True
     while stopped:
         for event in pygame.event.get():
@@ -264,6 +317,7 @@ def game_over():
                 quit()
 
         print_text('Game over. Press Enter to play again, Esc to exit', 40, 300)
+        print_text('Max scores:  ' + str(max_scores), 300, 350)
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RETURN]:
@@ -276,7 +330,10 @@ def game_over():
 
 
 while run_game():
-    pass
+    scores = 0
+    make_jump = False
+    jump_counter = 30
+    usr_y = display_height - usr_height - 100
 pygame.quit()
 quit()
 
