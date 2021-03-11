@@ -15,6 +15,8 @@ pygame.mixer.music.set_volume(0.3)
 jump_sound = pygame.mixer.Sound('Rrr.wav')
 fall_sound = pygame.mixer.Sound('Bdish.wav')
 loss_sound = pygame.mixer.Sound('loss.wav')
+heart_plus_sound = pygame.mixer.Sound('hp+.wav')
+button_sound = pygame.mixer.Sound('button.wav')
 
 icon = pygame.image.load('icon.png')
 pygame.display.set_icon(icon)
@@ -58,6 +60,32 @@ class Object:
         display.blit(self.image, (self.x, self.y))
 
 
+class Button:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+        self.inactive_clr = (13, 162, 58)
+        self.active_clr = (23, 204, 58)
+
+    def draw(self, x, y, message, action=None):
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+
+        if x < mouse[0] < x + self.width:
+            if y < mouse[1] < y + self.height:
+                pygame.draw.rect(display, self.active_clr, (x, y, self.width, self.height))
+
+                if click[0] == 1:
+                    pygame.mixer.Sound.play(button_sound)
+                    pygame.time.delay(300)
+                    if action is not None:
+                        action()
+        else:
+            pygame.draw.rect(display, self.inactive_clr, (x, y, self.width, self.height))
+
+        print_text(message, x + 10, y + 10)
+
+
 usr_width = 60
 usr_height = 100
 usr_x = display_width // 3
@@ -88,6 +116,9 @@ def run_game():
     land = pygame.image.load(r'Land.jpg')
 
     stone, cloud = open_random_objects()
+    heart = Object(display_width, 280, 30, health_img, 4)
+
+    button = Button(110, 50)
 
     while game:
         for event in pygame.event.get():
@@ -109,10 +140,14 @@ def run_game():
         display.blit(land, (0, 0))
         print_text('Scores:  ' + str(scores), 600, 10)
 
+        button.draw(20, 100, 'wow')
+
         draw_array(cactus_arr)
         move_objects(stone, cloud)
 
         draw_dino()
+        heart.move()
+        hearts_plus(heart)
 
         if check_collision(cactus_arr):
             # pygame.mixer.music.stop()
@@ -395,6 +430,22 @@ def check_health():
     else:
         pygame.mixer.Sound.play(fall_sound)
         return True
+
+
+def hearts_plus(heart):
+    global health, usr_x, usr_y, usr_width, usr_height
+
+    if heart.x <= -heart.width:
+        radius = display_width + random.randrange(500, 1700)
+        heart.return_self(radius, heart.y, heart.width, heart.image)
+
+    if usr_x <= heart.x <= usr_x + usr_width:
+        if usr_y <= heart.y <= usr_y + usr_height:
+            pygame.mixer.Sound.play(heart_plus_sound)
+            if health < 5:
+                health += 1
+            radius = display_width + random.randrange(500, 1700)
+            heart.return_self(radius, heart.y, heart.width, heart.image)
 
 
 while run_game():
